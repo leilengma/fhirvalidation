@@ -331,7 +331,7 @@ public class Main {
         var ctx = FhirContext.forR4();
 
         NpmPackageValidationSupport npmPackageSupport = new NpmPackageValidationSupport(ctx);
-        npmPackageSupport.loadPackageFromClasspath("classpath:ig/package.tgz");
+        npmPackageSupport.loadPackageFromClasspath("classpath:ig/fhir-ig-gplus-0.2.0.tgz");
 
 
         ValidationSupportChain validationSupportChain = new ValidationSupportChain(
