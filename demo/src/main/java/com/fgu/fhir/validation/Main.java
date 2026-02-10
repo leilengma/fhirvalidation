@@ -2,8 +2,6 @@ package com.fgu.fhir.validation;
 
 import java.io.IOException;
 
-import org.apache.jena.base.Sys;
-import org.checkerframework.checker.units.qual.m;
 import org.hl7.fhir.common.hapi.validation.support.CommonCodeSystemsTerminologyService;
 import org.hl7.fhir.common.hapi.validation.support.InMemoryTerminologyServerValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.NpmPackageValidationSupport;
@@ -333,7 +331,7 @@ public class Main {
         var ctx = FhirContext.forR4();
 
         NpmPackageValidationSupport npmPackageSupport = new NpmPackageValidationSupport(ctx);
-        npmPackageSupport.loadPackageFromClasspath("classpath:ig/fhir-ig-gplus-0.1.0.tgz");
+        npmPackageSupport.loadPackageFromClasspath("classpath:ig/package.tgz");
 
 
         ValidationSupportChain validationSupportChain = new ValidationSupportChain(
@@ -346,7 +344,7 @@ public class Main {
         FhirInstanceValidator instanceValidator = new FhirInstanceValidator(validationSupportChain);
         validator.registerValidatorModule(instanceValidator);
         instanceValidator.setAnyExtensionsAllowed(true);
-        validator.validateWithResult(bundle).getMessages().forEach(m ->{ 
+        validator.validateWithResult(bundle).getMessages().forEach(m ->{
             System.out.println(m.getLocationString()); 
             System.out.println(m.getSeverity()); 
             System.out.println(m.getMessage());
