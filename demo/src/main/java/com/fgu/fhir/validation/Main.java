@@ -333,12 +333,18 @@ public class Main {
         NpmPackageValidationSupport npmPackageSupport = new NpmPackageValidationSupport(ctx);
         npmPackageSupport.loadPackageFromClasspath("classpath:ig/fhir-ig-gplus-0.2.0.tgz");
 
-
-        ValidationSupportChain validationSupportChain = new ValidationSupportChain(
+        ValidationSupportChain coreChain = new ValidationSupportChain(
             npmPackageSupport,
             new DefaultProfileValidationSupport(ctx),
             new InMemoryTerminologyServerValidationSupport(ctx),
             new CommonCodeSystemsTerminologyService(ctx));
+
+        VersionedUrlFallbackValidationSupport versionedUrlFallback =
+            new VersionedUrlFallbackValidationSupport(ctx, coreChain);
+
+        ValidationSupportChain validationSupportChain = new ValidationSupportChain(
+            versionedUrlFallback,
+            coreChain);
 
         FhirValidator validator = ctx.newValidator();
         FhirInstanceValidator instanceValidator = new FhirInstanceValidator(validationSupportChain);
